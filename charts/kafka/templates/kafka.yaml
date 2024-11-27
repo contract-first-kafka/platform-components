@@ -43,7 +43,6 @@ spec:
   zookeeper:
     storage:
       type: persistent-claim
-      class: gp3
       size: 10Gi
     replicas: 3
     metricsConfig:
