@@ -1,0 +1,5 @@
+clusterRouterDomain: apps.example.cluster.com
+kafka:
+  oidc:
+    clientId: kafka
+    secret: kafka-oidc-client-secret

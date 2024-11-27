@@ -1,0 +1,8 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: kafka-oidc
+stringData:
+  clientId: "{{ .Values.kafka.oidc.clientId }}"
+  secret: "{{ .Values.kafka.oidc.secret }}"
+type: Opaque
