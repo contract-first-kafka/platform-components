@@ -3,7 +3,7 @@ kind: Certificate
 metadata:
   name: platform-cluster-ca
 spec:
-  secretName: platform-cluster-ca
+  secretName: platform-cluster-ca-cert
   issuerRef:
     name: global-issuer
   commonName: "ca.self-signer.cert-manager"
