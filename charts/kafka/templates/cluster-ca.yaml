@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: platform-cluster-ca-cert
 data:
-  ca.password: passwd
+  "[ca.password]": passwd
 type: Opaque
 # ---
 # apiVersion: cert-manager.io/v1
