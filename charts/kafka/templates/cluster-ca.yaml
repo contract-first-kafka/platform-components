@@ -1,10 +1,10 @@
 kind: Secret
 apiVersion: v1
 metadata:
-  name: keystore-password
-stringData:
-  password: passwd
-type: Opaque
+  name: platform-cluster-ca-cert
+data:
+  ca.password: passwd
+type: kubernetes.io/tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -27,8 +27,8 @@ spec:
     pkcs12:
       create: true
       passwordSecretRef:
-        name: keystore-password
-        key: password
+        name: platform-cluster-ca-cert
+        key: ca.password
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
