@@ -9,24 +9,24 @@ spec:
     realm: kafka
     displayName: Kafka
     clients:
-      - clientId: kafka
-        enabled: true
-        publicClient: true
+    - clientId: kafka
+      enabled: true
+      publicClient: true
     clientScopeMappings:
       realm-management:
-        - client: kafka
-          roles:
-            - manage-users
-            - manage-clients
+      - client: kafka
+        roles:
+        - manage-users
+        - manage-clients
     applications:
-      - name: kafka-service-account
-        secret: kafka-oidc-client-secret
-        enabled: true
-        bearerOnly: false
-        publicClient: false
-        standardFlowEnabled: false
-        directAccessGrantsEnabled: true
-        serviceAccountsEnabled: true
-        clientAuthenticatorType: client-secret
+    - name: kafka-service-account
+      secret: kafka-oidc-client-secret
+      enabled: true
+      bearerOnly: false
+      publicClient: false
+      standardFlowEnabled: false
+      directAccessGrantsEnabled: true
+      serviceAccountsEnabled: true
+      clientAuthenticatorType: client-secret
     identityProviders: []
     keycloakVersion: 10.0.1
