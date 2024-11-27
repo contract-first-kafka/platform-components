@@ -1,3 +1,11 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: keystore-password
+stringData:
+  password: passwd
+type: Opaque
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -18,6 +26,9 @@ spec:
   keystores:
     pkcs12:
       create: true
+      passwordSecretRef:
+        name: keystore-password
+        key: password
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
