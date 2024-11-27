@@ -16,4 +16,8 @@ metadata:
     strimzi.io/cluster: platform
     strimzi.io/kind: Kafka
   name: platform-cluster-ca-cert
+data:
+  ca.crt:
+  tls.key:
+  tls.crt:
 type: Opaque
