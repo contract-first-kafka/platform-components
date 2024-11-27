@@ -16,9 +16,7 @@ spec:
     name: global-issuer
     kind: ClusterIssuer
   commonName: "ca.self-signer.cert-manager"
-  isCA: false
-  usages:
-    - server auth
+  isCA: true
   secretTemplate:
     labels:
       strimzi.io/cluster: platform
@@ -29,19 +27,3 @@ spec:
       passwordSecretRef:
         name: platform-cluster-ca-cert
         key: ca.password
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: platform-cluster-ca
-spec:
-  secretName: platform-cluster-ca
-  issuerRef:
-    name: global-issuer
-    kind: ClusterIssuer
-  commonName: "ca.self-signer.cert-manager"
-  isCA: true
-  secretTemplate:
-    labels:
-      strimzi.io/cluster: platform
-      strimzi.io/kind: Kafka
