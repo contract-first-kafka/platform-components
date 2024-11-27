@@ -122,18 +122,18 @@ spec:
     scopeMappings: []
     clientScopeMappings:
       kafka-app:
-      - client: kafka-app-js
+      - client: kafka
         roles:
         - manager
         - admin
         - user
       realm-management:
-      - client: kafka-app-js
+      - client: kafka
         roles:
         - manage-users
         - manage-clients
     clients:
-    - clientId: kafka-app-js
+    - clientId: kafka
       enabled: true
       publicClient: true
       redirectUris:
