@@ -39,22 +39,125 @@ spec:
     quickLoginCheckMilliSeconds: 1000
     maxDeltaTimeSeconds: 43200
     failureFactor: 30
+    users:
+    - username: user
+      enabled: true
+      emailVerified: true
+      firstName: user
+      lastName: kafka
+      email: kafka-user@redhat.com
+      credentials:
+      - type: password
+        value: kafka123
+      realmRoles: []
+      applicationRoles:
+        kafka-app:
+        - user
+    - username: manager
+      enabled: true
+      emailVerified: true
+      firstName: manager
+      lastName: kafka
+      email: kafka-manager@redhat.com
+      credentials:
+      - type: password
+        value: kafka123
+      realmRoles: []
+      applicationRoles:
+        kafka-app:
+        - user
+        - manager
+    - username: admin
+      enabled: true
+      emailVerified: true
+      firstName: admin
+      lastName: kafka
+      email: kafka-admin@redhat.com
+      credentials:
+      - type: password
+        value: kafka123
+      realmRoles: []
+      applicationRoles:
+        realm-management:
+        - manage-users
+        - manage-clients
+        account:
+        - manage-account
+        kafka-app:
+        - user
+        - manager
+        - admin
+    roles:
+      realm: []
+      client:
+        kafka-app:
+        - name: user
+          composite: false
+          clientRole: true
+          containerId: kafka
+        - name: admin
+          composite: false
+          clientRole: true
+          containerId: kafka
+        - name: manager
+          composite: false
+          clientRole: true
+          containerId: kafka
+    groups:
+    - name: kafka
+      path: "/kafka"
+      attributes: {}
+      realmRoles: []
+      clientRoles: {}
+      subGroups:
+      - name: manager
+        path: "/kafka/manager"
+        attributes: {}
+        realmRoles: []
+        clientRoles: {}
+        subGroups: []
     defaultRoles: []
     requiredCredentials:
     - password
     scopeMappings: []
     clientScopeMappings:
+      kafka-app:
+      - client: kafka-app-js
+        roles:
+        - manager
+        - admin
+        - user
       realm-management:
-      - client: kafka
+      - client: kafka-app-js
         roles:
         - manage-users
         - manage-clients
     clients:
-    - clientId: kafka
+    - clientId: kafka-app-js
       enabled: true
       publicClient: true
+      redirectUris:
+      - https://kafka-kafka.{{ .Values.clusterRouterDomain }}/*
+      webOrigins:
+      - "+"
       fullScopeAllowed: false
+      protocolMappers:
+      - name: kafka-group-mapper
+        protocol: openid-connect
+        protocolMapper: oidc-group-membership-mapper
+        consentRequired: false
+        config:
+          full.path: 'true'
+          id.token.claim: 'true'
+          access.token.claim: 'true'
+          claim.name: kafka-groups
+          userinfo.token.claim: 'true'
     applications:
+    - name: kafka-app
+      enabled: true
+      bearerOnly: true
+      defaultRoles:
+      - user
     - name: kafka-serviceaccount
       secret: ab54d329-e435-41ae-a900-ec6b3fe15c54
       enabled: true
