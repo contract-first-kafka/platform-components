@@ -8,16 +8,16 @@ spec:
     name: global-issuer
   commonName: "ca.self-signer.cert-manager"
   isCA: true
----
-apiVersion: v1
-kind: Secret
-metadata:
-  labels:
-    strimzi.io/cluster: platform
-    strimzi.io/kind: Kafka
-  name: platform-cluster-ca-cert
-data:
-  ca.crt: ""
-  tls.key: ""
-  tls.crt: ""
-type: Opaque
+# ---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   labels:
+#     strimzi.io/cluster: platform
+#     strimzi.io/kind: Kafka
+#   name: platform-cluster-ca-cert
+# data:
+#   ca.crt: ""
+#   tls.key: ""
+#   tls.crt: ""
+# type: Opaque
