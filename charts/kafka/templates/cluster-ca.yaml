@@ -1,0 +1,10 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: platform-cluster-ca
+spec:
+  secretName: platform-cluster-ca
+  issuerRef:
+    name: global-issuer
+  commonName: "ca.self-signer.cert-manager"
+  isCA: true
