@@ -6,6 +6,7 @@ spec:
   secretName: platform-cluster-ca-cert
   issuerRef:
     name: global-issuer
+    kind: ClusterIssuer
   commonName: "ca.self-signer.cert-manager"
   isCA: true
 # ---
