@@ -15,3 +15,6 @@ authSessionSecret: Q72XbDKY8IcNSNzAQjVwa3xmh4lfdvzG
 
 dbUsername: postgres
 dbPassword: dbpw
+
+kafkaOidcClientId: kafka
+kafkaOidcClientSecret: kafka-oidc-client-secret

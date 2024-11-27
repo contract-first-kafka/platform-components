@@ -1,0 +1,10 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kafka-listener
+spec:
+  secretName: kafka-listener-cert
+  issuerRef:
+    name: global-issuer
+    kind: ClusterIssuer
+  commonName: "ca.self-signer.cert-manager"
