@@ -32,6 +32,11 @@ spec:
           tlsTrustedCertificates:
             - secretName: kafka-listener-cert
               certificate: ca.crt
+        configuration:
+          brokerCertChainAndKey:
+            secretName: kafka-listener-cert
+            certificate: tls.crt
+            key: tls.key
     version: 3.7.0
     replicas: 3
     metricsConfig:
