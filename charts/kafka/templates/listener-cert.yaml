@@ -8,3 +8,8 @@ spec:
     name: global-issuer
     kind: ClusterIssuer
   commonName: "ca.self-signer.cert-manager"
+  dnsNames:
+    - platform-kafka-bootstrap.kafka.svc.cluster.local
+    - broker-0.platform-kafka-brokers.kafka.svc.cluster.local
+    - broker-1.platform-kafka-brokers.kafka.svc.cluster.local
+    - broker-2.platform-kafka-brokers.kafka.svc.cluster.local
