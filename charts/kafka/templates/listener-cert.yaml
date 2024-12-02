@@ -3,13 +3,14 @@ kind: Certificate
 metadata:
   name: kafka-listener
 spec:
-  secretName: kafka-listener-cert
-  issuerRef:
-    name: global-issuer
-    kind: ClusterIssuer
-  commonName: "ca.self-signer.cert-manager"
   dnsNames:
     - platform-kafka-bootstrap.kafka.svc.cluster.local
     - broker-0.platform-kafka-brokers.kafka.svc.cluster.local
     - broker-1.platform-kafka-brokers.kafka.svc.cluster.local
     - broker-2.platform-kafka-brokers.kafka.svc.cluster.local
+  issuerRef:
+    name: global-issuer
+    kind: ClusterIssuer
+  secretName: kafka-listener-cert
+  usages:
+    - server auth
