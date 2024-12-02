@@ -17,7 +17,7 @@ spec:
     listeners:
       - name: oauth
         port: 9096
-        tls: false
+        tls: true
         type: internal
         authentication:
           type: oauth
