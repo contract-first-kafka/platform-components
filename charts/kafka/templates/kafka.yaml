@@ -32,6 +32,10 @@ spec:
           tlsTrustedCertificates:
             - secretName: kafka-listener-cert
               certificate: ca.crt
+        authorization:
+          type: opa
+          url: http://opa:8181/v1/data/kafka/allow
+          allowOnError: false
         configuration:
           brokerCertChainAndKey:
             secretName: kafka-listener-cert
