@@ -8,23 +8,6 @@ spec:
       disableNetworkPolicy: true
     host: registry-apicurio-registry.apps.cluster-l8kn9.l8kn9.sandbox2408.opentlc.com
   configuration:
-    env:
-      - name: REGISTRY_AUTH_ENABLED
-        value: 'true'
-      - name: REGISTRY_UI_AUTH_TYPE
-        value: oidc
-      - name: REGISTRY_AUTH_URL_CONFIGURED
-        value: https://login.microsoftonline.com/584dc670-146e-46e7-8728-51c9059f5f7e/v2.0
-      - name: REGISTRY_OIDC_CLIENT_ID
-        value: registry-client-id
-      - name: REGISTRY_OIDC_CLIENT_SECRET
-        value: supersecretpassword
-      - name: REGISTRY_OIDC_UI_CLIENT_ID
-        value: 9a1e86f1-a600-4ee1-9081-bb6d98204bdb
-      - name: REGISTRY_OIDC_UI_REDIRECT_URL
-        value: https://registry-apicurio-registry.apps.cluster-l8kn9.l8kn9.sandbox2408.opentlc.com/ui/
-      - name: QUARKUS_LOG_LEVEL
-        value: debug
     security: {}
     persistence: "sql"
     sql:
