@@ -65,18 +65,6 @@ data:
 
     default allow = false
 
-    principals = {
-        "platform-admin": {
-            "admin": true
-        },
-        "mirrormaker": {
-            "topicAdmin": true
-        },
-        "test-app-b": {
-            "reads": ["test-app-a.orders", "test-app-a.favorites"]
-        }
-    }
-
     allow if {
         not deny
     }
@@ -86,6 +74,18 @@ data:
         not allow_topic_admins
         not allow_resource_owner
         not allow_guest_reader
+    }
+
+    principals := {
+        "platform-admin": {
+            "admin": true
+        },
+        "mirrormaker": {
+            "topicAdmin": true
+        },
+        "test-app-b": {
+            "reads": ["test-app-a.orders", "test-app-a.favorites"]
+        }
     }
 
     allow_admins if {
