@@ -317,29 +317,25 @@ spec:
           containerId: 1b7ede7c-05cc-41cf-8254-1f7a3b57706c
           attributes: {}
     groups:
-    - id: eaf7bc05-c311-434f-bcc2-78cad92119af
-      name: developers
+    - name: developers
       path: "/developers"
       attributes: {}
       realmRoles: []
       clientRoles: {}
       subGroups: []
-    - id: 9612e919-f194-4bca-b4f6-7fd6df8d72ed
-      name: operators
+    - name: operators
       path: "/operators"
       attributes: {}
       realmRoles: []
       clientRoles: {}
       subGroups: []
-    - id: 2e8cb893-3d24-400a-8e97-e8022557f96e
-      name: backstage-admins
+    - name: backstage-admins
       path: "/backstage-admins"
       attributes: {}
       realmRoles: []
       clientRoles: {}
       subGroups: []
     defaultRole:
-      id: c5b982bf-1d6e-42fc-8274-634d2db43172
       name: default-roles-backstage
       description: "${role_default-roles}"
       composite: true
@@ -380,9 +376,7 @@ spec:
     webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister: false
     webAuthnPolicyPasswordlessAcceptableAaguids: []
     users:
-    - id: 0df5290d-8b0f-49bd-8480-060818b0f7aa
-      createdTimestamp: 1698325488983
-      username: backstage-admin
+    - username: backstage-admin
       enabled: true
       totp: false
       emailVerified: true
@@ -392,33 +386,21 @@ spec:
       credentials:
       - type: password
         value: letmein
-      disableableCredentialTypes: []
-      requiredActions: []
       realmRoles:
       - default-roles-backstage
-      notBefore: 0
       groups:
       - "/backstage-admins"
-    - id: dab509d1-7db2-4e64-962d-776f1ae0aec1
-      createdTimestamp: 1698261489537
-      username: service-account-backstage
+    - username: service-account-backstage
       enabled: true
       totp: false
       emailVerified: false
       serviceAccountClientId: backstage
-      credentials: []
-      disableableCredentialTypes: []
-      requiredActions: []
       clientRoles:
         realm-management:
         - view-users
         - query-groups
         - query-users
-      notBefore: 0
-      groups: []
-    - id: 67180403-75fe-410f-858c-3b1a35eb9cb0
-      createdTimestamp: 1698268866657
-      username: user-dev-1
+    - username: user-dev-1
       enabled: true
       totp: false
       emailVerified: true
@@ -428,14 +410,9 @@ spec:
       credentials:
       - type: password
         value: letmein
-      disableableCredentialTypes: []
-      requiredActions: []
-      notBefore: 0
       groups:
       - "/developers"
-    - id: aef761a4-895d-4cbf-ada7-ea0006b13bb0
-      createdTimestamp: 1698268867415
-      username: user-dev-2
+    - username: user-dev-2
       enabled: true
       totp: false
       emailVerified: true
@@ -445,14 +422,9 @@ spec:
       credentials:
       - type: password
         value: letmein
-      disableableCredentialTypes: []
-      requiredActions: []
-      notBefore: 0
       groups:
       - "/developers"
-    - id: 3e676871-611f-40ae-9918-d824bf587316
-      createdTimestamp: 1698268867144
-      username: user-ops-1
+    - username: user-ops-1
       enabled: true
       totp: false
       emailVerified: true
@@ -462,14 +434,9 @@ spec:
       credentials:
       - type: password
         value: letmein
-      disableableCredentialTypes: []
-      requiredActions: []
-      notBefore: 0
       groups:
       - "/operators"
-    - id: 76b4ecfd-134e-44a5-ab1f-28a877ff5b2b
-      createdTimestamp: 1698268867046
-      username: user-ops-2
+    - username: user-ops-2
       enabled: true
       totp: false
       emailVerified: true
@@ -479,9 +446,6 @@ spec:
       credentials:
       - type: password
         value: letmein
-      disableableCredentialTypes: []
-      requiredActions: []
-      notBefore: 0
       groups:
       - "/operators"
     scopeMappings:
@@ -636,8 +600,7 @@ spec:
       fullScopeAllowed: true
       nodeReRegistrationTimeout: -1
       protocolMappers:
-      - id: 6bcca4e9-9674-4ba8-9fa1-27e0b51ea2e5
-        name: Client IP Address
+      - name: Client IP Address
         protocol: openid-connect
         protocolMapper: oidc-usersessionmodel-note-mapper
         consentRequired: false
@@ -647,8 +610,7 @@ spec:
           access.token.claim: 'true'
           claim.name: clientAddress
           jsonType.label: String
-      - id: 42a02d24-c242-4c4f-81f1-d42beef754be
-        name: Client Host
+      - name: Client Host
         protocol: openid-connect
         protocolMapper: oidc-usersessionmodel-note-mapper
         consentRequired: false
@@ -658,8 +620,7 @@ spec:
           access.token.claim: 'true'
           claim.name: clientHost
           jsonType.label: String
-      - id: 4c70cf92-5f07-467b-99cb-810f9d808932
-        name: Client ID
+      - name: Client ID
         protocol: openid-connect
         protocolMapper: oidc-usersessionmodel-note-mapper
         consentRequired: false
@@ -674,8 +635,7 @@ spec:
       - roles
       - email
       optionalClientScopes: []
-    - id: 214e93c9-6266-4cfe-8780-360224073107
-      clientId: broker
+    - clientId: broker
       name: "${client_broker}"
       surrogateAuthRequired: false
       enabled: true
@@ -708,8 +668,7 @@ spec:
       - phone
       - offline_access
       - microprofile-jwt
-    - id: 76398701-5fb3-4340-88d6-8b04918598ca
-      clientId: realm-management
+    - clientId: realm-management
       name: "${client_realm-management}"
       surrogateAuthRequired: false
       enabled: true
@@ -742,8 +701,7 @@ spec:
       - phone
       - offline_access
       - microprofile-jwt
-    - id: d15398e4-9c30-4f7a-88a8-8c03ab8fcddf
-      clientId: security-admin-console
+    - clientId: security-admin-console
       name: "${client_security-admin-console}"
       rootUrl: "${authAdminUrl}"
       baseUrl: "/admin/backstage/console/"
