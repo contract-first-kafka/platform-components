@@ -139,7 +139,7 @@ spec:
       groups:
       - "/operators"
     scopeMappings: []
-    clientScopeMappings: []
+    clientScopeMappings: {}
     clients:
     - clientId: "{{ .Values.keycloak.backstageClient.id }}"
       enabled: true
