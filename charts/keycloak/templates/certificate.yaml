@@ -14,3 +14,9 @@ spec:
   secretName: keycloak-tls
   usages:
     - server auth
+  keystores:
+    jks:
+      create: true
+      passwordSecretRef:
+        key: password
+        name: truststore-credentials
