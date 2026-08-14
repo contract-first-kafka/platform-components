@@ -37,18 +37,18 @@ spec:
     dependencies:
       softwareTemplates:
         host: github.com
-        organization: contract-first-idp-test
+        organization: contract-first-idp
         repository: software-templates
-        repositoryUrl: https://github.com/contract-first-idp-test/software-templates.git
+        repositoryUrl: https://github.com/contract-first-idp/software-templates.git
         revision: v1.0.0
         version: 1.0.0
         catalogPath: catalog-info.yaml
       developerCharts:
-        repositoryUrl: https://github.com/contract-first-idp-test/developer-charts.git
+        repositoryUrl: https://github.com/contract-first-idp/developer-charts.git
         revision: v1.0.0
         version: 1.0.0
     charts:
-      repositoryUrl: https://github.com/contract-first-idp-test/developer-charts.git
+      repositoryUrl: https://github.com/contract-first-idp/developer-charts.git
       revision: v1.0.0
       version: 1.0.0
     schemaRegistry:
