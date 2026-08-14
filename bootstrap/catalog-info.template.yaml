@@ -1,0 +1,101 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: workshop
+  title: Contract-First IDP Workshop Target
+  description: Public repository and cluster contract for this platform target.
+  annotations:
+    github.com/project-slug: "@@SCM_ORGANIZATION@@/@@SCM_REPOSITORY@@"
+spec:
+  owner: group:default/platform-maintainers
+  type: contract-first-idp-target
+  platform:
+    distribution:
+      version: 1.0.0
+    configuration:
+      host: "@@SCM_HOST@@"
+      organization: "@@SCM_ORGANIZATION@@"
+      repository: "@@SCM_REPOSITORY@@"
+      repositoryUrl: "@@PLATFORM_REPO_URL@@"
+      revision: "@@PLATFORM_REVISION@@"
+      valuesPath: catalog-info.yaml
+    tenantAdmission:
+      branch: "@@PLATFORM_REVISION@@"
+      path: tenants
+    target:
+      name: workshop
+    cluster:
+      name: "@@CLUSTER_NAME@@"
+      apiUrl: "@@CLUSTER_API_URL@@"
+      routerDomain: "@@ROUTER_DOMAIN@@"
+    argocd:
+      namespace: openshift-gitops
+      destinationServer: https://kubernetes.default.svc
+      webhooks:
+        application: "https://openshift-gitops-server-openshift-gitops.@@ROUTER_DOMAIN@@/api/webhook"
+        applicationSet: "https://openshift-gitops-applicationset-controller-openshift-gitops.@@ROUTER_DOMAIN@@/api/webhook"
+    dependencies:
+      softwareTemplates:
+        host: github.com
+        organization: contract-first-idp
+        repository: software-templates
+        repositoryUrl: https://github.com/contract-first-idp/software-templates.git
+        revision: v1.0.0
+        version: 1.0.0
+        catalogPath: catalog-info.yaml
+      developerCharts:
+        repositoryUrl: https://github.com/contract-first-idp/developer-charts.git
+        revision: v1.0.0
+        version: 1.0.0
+    charts:
+      repositoryUrl: https://github.com/contract-first-idp/developer-charts.git
+      revision: v1.0.0
+      version: 1.0.0
+    schemaRegistry:
+      apiUrl: "https://apicurio.@@ROUTER_DOMAIN@@/apis/registry/v3"
+      uiUrl: "https://apicurio-ui.@@ROUTER_DOMAIN@@"
+      authServerUrl: "https://cf-idp-keycloak-keycloak.@@ROUTER_DOMAIN@@/realms/platform"
+    security:
+      keycloak:
+        namespace: cf-idp-keycloak
+        instanceName: cf-idp-keycloak
+        realm: platform
+      secrets:
+        namespace: cf-idp-secrets
+    spectralRules:
+      repositoryUrl: https://github.com/contract-first-idp/spectral-rules.git
+      revision: f2a1e6ab9f428eb822c232d8f460ff1e00199113
+      path: ruleset.yaml
+    registry:
+      quay:
+        host: "registry-quay-quay.@@ROUTER_DOMAIN@@"
+        url: "https://registry-quay-quay.@@ROUTER_DOMAIN@@"
+        clusterId: openshift
+        credentials:
+          sourcePullSecretName: default-quay-openshift
+          destinationPushSecretName: builder-quay-openshift
+          runtimePullSecretName: default-quay-openshift
+    services:
+      devSpaces:
+        url: "https://devspaces.@@ROUTER_DOMAIN@@"
+        githubCallbackUrl: "https://devspaces.@@ROUTER_DOMAIN@@/api/oauth/callback"
+      developerHub:
+        url: "https://backstage-backstage-developer-hub.@@ROUTER_DOMAIN@@"
+        oidcCallbackUrl: "https://backstage-backstage-developer-hub.@@ROUTER_DOMAIN@@/api/auth/oidc/handler/frame"
+      keycloak:
+        url: "https://cf-idp-keycloak-keycloak.@@ROUTER_DOMAIN@@"
+        privateUrl: https://cf-idp-keycloak.cf-idp-keycloak.svc:8443
+      microcks:
+        url: "https://microcks.@@ROUTER_DOMAIN@@"
+        redirectUri: "https://microcks.@@ROUTER_DOMAIN@@/*"
+      hawtio:
+        host: "hawtio.@@ROUTER_DOMAIN@@"
+      gitea:
+        rootUrl: "https://gitea-gitea.@@ROUTER_DOMAIN@@/"
+        domain: "gitea-gitea.@@ROUTER_DOMAIN@@"
+        sshDomain: "gitea-ssh.@@ROUTER_DOMAIN@@"
+    build:
+      sourceRevision: main
+      sccClusterRoleName: system:openshift:scc:pipelines-scc
+      deploymentUpdate:
+        strategy: restart

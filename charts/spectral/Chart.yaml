@@ -1,6 +1,0 @@
-apiVersion: v2
-name: .
-description: A Helm chart for an Spectral linter
-type: application
-version: 0.1.0
-appVersion: "6.11.1"

@@ -1,95 +1,83 @@
 # Contract-First IDP Platform Components
 
-GitOps manifest for an Internal Developer Platform built on OpenShift
+Install the shared OpenShift services that support the Contract-First IDP workshop. This is the
+starting repository for workshop installers and platform engineers evaluating or operating the
+platform.
 
-## Preparing your own Fork
+## Overview
 
-1. Choose an existing GitHub organization or create a new one for your own fork of Contract-First IDP
+The repository bootstraps OpenShift GitOps and declares the operators and shared services used by
+Developer Hub, the golden paths, tenant workloads, API publication, and managed Resources. A
+configured fork is the source of truth for one workshop target; Argo CD reconciles that Git state
+onto the cluster.
 
-2. Fork the following repositories into your organization:
-   - [`platform-components`](https://github.com/contract-first-idp/platform-components) - the platform k8s manifest
-   - [`software-templates`](https://github.com/contract-first-idp/software-templates) - Backstage scaffolder templates
-   - [`developer-charts`](https://github.com/contract-first-idp/developer-charts) - shared default charts for scaffolder templates
-   - [`demo-domain`](https://github.com/contract-first-idp/demo-domain) - root GitOps entrypoint for platform tenants
-   - [`spectral-rules`](https://github.com/contract-first-idp/spectral-rules) - a linter rule set configuration for API specs
+Installers normally need only this repository. Released `software-templates` and
+`developer-charts` dependencies are consumed from the versions recorded in the target contract.
 
-## Bootstrapping OpenShift GitOps
+## Getting Started
 
-1. Provision OpenShift GitOps operator:
+Start with the [workshop installation guide](docs/installation.md). It contains prerequisites,
+GitHub App setup, exact commands, validation, and troubleshooting.
 
-   `oc apply -k argocd/bootstrap/operator`
+The minimal installation path is:
 
-2. Once the OpenShift GitOps operator is installed, confgure the platform ArgoCD instance:
+1. Fork and clone this repository, ensure `oc` already has an authenticated cluster-admin session,
+   and run
+   `./bootstrap/configure-workshop.sh`.
+2. Configure and install the CF-IDP GitHub App, create the standard teams, and populate the
+   ignored `bootstrap/secrets.env` file.
+3. Commit and push the generated public target configuration.
+4. Install OpenShift GitOps, create the cluster credential Secret, and apply the root
+   Kustomization.
+5. Let Argo CD reconcile the selected platform services.
 
-   `oc apply -k argocd/bootstrap/instance`
+## Platform Services
 
-3. When all pods in the `openshift-gitops` namespace are ready, use the URL resolved by the ArgoCD Route to open the user interface and verify that you can log in.
+The default target includes OpenShift GitOps, Pipelines, Developer Hub, Dev Spaces, Quay, Schema
+Registry, identity, External Secrets, and supported Resource operators. See the
+[component inventory](docs/component-inventory.md) for delivery methods and pinned versions.
 
-   Note: By default, only the OpenShift user called `admin` has full ArgoCD privileges. You can adjust the list of user that should have full ArgoCD privileges on the cluster by editing `argocd/bootstrap/instance/gitops-admins-group.yaml`.
+## Architecture
 
-## Provisioning the Developer Platform
+The configured root `catalog-info.yaml` is the public platform-target contract. The root
+ApplicationSet combines that contract with the selected inventory, while credentials remain in a
+separate cluster Secret. See [Architecture](docs/architecture.md) for the ownership, discovery,
+identity, and configuration contracts, including the
+[parallel Keycloak decision](docs/keycloak-parallel-identity.md).
 
-1. Copy the file `argocd/platform-root.example.yaml` to `argocd/platform-root.yaml`.
+## Documentation
 
-2. Adjust the value of `source.repoUrl` in `argocd/platform-root.example.yaml` to point to your fork of the `platform-components` repository.
+- [Installation](docs/installation.md)
+- [Architecture](docs/architecture.md)
+- [Parallel Keycloak architecture](docs/keycloak-parallel-identity.md)
+- [Component inventory](docs/component-inventory.md)
+- [Operations](docs/operations.md)
+- [Validation and development](docs/validation.md)
+- [Release policy](docs/release-versioning.md)
 
-3. Customize the override values in `argocd/platform-root.yaml`. (see [Platform Configuration Guide](#platform-configuration-guide)) 
+## Repository Structure
 
-   Note: Since you will potentially configure sensitive values in `argocd/platform-root.yaml` like a Git token, etc., it is included in `.gitignore` so sensitive values are not accidentally pushed to the remote.
+| Path | Purpose |
+| --- | --- |
+| `bootstrap/` | Configuration helper and OpenShift GitOps bootstrap manifests |
+| `bootstrap/root/platform-applicationset.yaml` | Selected operators and shared services |
+| `components/` | Kustomize components for platform services |
+| `operators/` | Operator installation and configuration |
+| `tenants/` | GitOps admission entries for tenant Domains |
+| `docs/` | Installation, architecture, operations, inventory, and validation guides |
+| `test/` | Deterministic repository and rendered-manifest tests |
 
-4. Provision the root ArgoCD Application:
+After configuration, the main files owned by an installer are the generated `catalog-info.yaml`,
+the root `kustomization.yaml`, the ApplicationSet inventory, and the ignored
+`bootstrap/secrets.env` credential file.
 
-   `oc apply -f argocd/platform-root.yaml -n openshift-gitops`
+## Development
 
-5. In the ArgoCD UI, you will see a set of Applications begin to sync. Once all Applications are in a synced and healthy, the platform is installed.
+Run the deterministic validation suite from the repository root:
 
-### Platform Configuration Guide
+```bash
+make test
+```
 
-| Key | Description | Notes |
-|-----|-------------|-------|
-| `clusterRouterDomain` | Wildcard domain for the OpenShift Router | Default value is `apps.example.cluster.com` |  |
-| `gitHost` | GitHub service provider host | Default value is `https://github.com`  |
-| `gitOrg` | GitHub organization | Default value is `contract-first-idp` e.g. your fork |
-| `gitRef` | Git branch, tag, or commit | Default value is `main` e.g. your feature branch |
-| `gitToken` | Backstage GitHub authentication token |  Generate a "classic" GitHub personal access token <br/>Settings -> Developer Settings -> Personal Access Tokens |
-| `devSpacesClientId` `devSpacesClientSecret` | GitHub client ID and secret for Dev Spaces | See [Configuring a GitHub App for DevSpaces](https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.16/html/administration_guide/configuring-devspaces#configuring-oauth-2-for-github) <br/>Reference callback URL: `https://devspaces.apps.example.cluster.com/api/oauth/callback` |
-
-
-## Platform Demo Guide
-
-1. Browse to your Developer Hub instance URL which is managed by the Route in the `developer-hub` namespace.
-
-2. A Keycloak Realm including some predenifed users and groups is preconfigured as part of the platform for demonstration of OIDC integration with an enterprise identity provider. Chose a persona to log in to the developer portal. (See [Developer Hub User Credentials](#developer-hub-user-credentials))
-
-3. Go to `Create...` on the side nagivation menu in the portal a view an inventory of templates. First select and execute the `System Template` which will create namespaces and a GitOps entrypoint for your new System.
-
-4. Verify that a new GitHub repository was created representing the new System, and accept the pull request made to the `demo-domain` repository.
-
-   Note: The ArgoCD UI will eventually display a new Application, OpenShift will have new namespaces configured. You can speed the process up by refreshing the `demo-domain` application in the ArgoCD UI.
-
-5. Now browse again to `Create...` in the Developer Hub UI and this time select and execute `OpenAPI Specification` template. Make sure it is associated with the System you created previously.
-
-6.  Verify that a new GitHub repository was created representing the new API and accept the pull request made to the System repostory created previously.
-
-7. Once ArgoCD reconciles the new API, there will be a new API Specification pipeline in your System's build namepace in OpenShift. Iterate on the scaffoled OpenAPI specification, commit your changes, and run the API Specification pipeline to publish your specification version.
-
-8. Now you can run any of the other component templates and select your existing API Entity in the scaffolder form. Various producer and consumer implementations are be bootstrapped by leveraging the API specification.
-
-9. Optionally, iterate on the component implementation and commit your changes to its Git repository as needed. 
-
-10. Run the component pipeline and test your component instance in its System's dev namepace.
-
-### Developer Hub User Credentials
-
-The is configured for RH SSO authentication. The following users and groups will be created and can be used to login. Keycloak user and group entity discovery is enabled and should sync the users and groups in backstage.
-
-| User | Member of Group | Password |
-|------|-----------------|----------|
-| `backstage-admin` | `backstage-admins` | `letmein` |
-| `user-ops-1` | `operators` | `letmein` |
-| `user-ops-2` | `operators` | `letmein` |
-| `user-dev-1` | `developers` | `letmein` |
-| `user-dev-2` | `developers` | `letmein` |
-
-
-
+The direct equivalent is `npm ci --prefix test` followed by `npm test --prefix test`. Sibling
+checkouts are needed only when validating coordinated source changes across all three projects.
