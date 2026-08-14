@@ -1,0 +1,15 @@
+apiVersion: quay.redhat.com/v1
+kind: QuayIntegration
+metadata:
+  name: quay
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    platform.contract-first.io/router-domain: example.invalid
+spec:
+  clusterID: openshift
+  credentialsSecret:
+    name: quay-access-token
+    namespace: openshift-operators
+    key: token
+  insecureRegistry: false
+  quayHostname: https://registry-quay-quay.invalid

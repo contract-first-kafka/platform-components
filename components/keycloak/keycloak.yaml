@@ -1,0 +1,40 @@
+apiVersion: k8s.keycloak.org/v2beta1
+kind: Keycloak
+metadata:
+  name: cf-idp-keycloak
+  namespace: cf-idp-keycloak
+  annotations:
+    argocd.argoproj.io/sync-wave: '0'
+    platform.contract-first.io/router-domain: example.invalid
+spec:
+  instances: 1
+  features:
+    enabled: [client-admin-api:v2]
+  bootstrapAdmin:
+    service:
+      secret: cf-idp-keycloak-admin
+  hostname:
+    hostname: https://cf-idp-keycloak-keycloak.invalid
+    strict: true
+  db:
+    vendor: postgres
+    host: cf-idp-keycloak-db-primary
+    port: 5432
+    database: keycloak
+    usernameSecret:
+      name: cf-idp-keycloak-db-pguser-postgres
+      key: user
+    passwordSecret:
+      name: cf-idp-keycloak-db-pguser-postgres
+      key: password
+  http:
+    tlsSecret: cf-idp-keycloak-tls
+  proxy:
+    headers: xforwarded
+  ingress:
+    enabled: false
+  resources:
+    requests:
+      memory: 1700Mi
+    limits:
+      memory: 2Gi

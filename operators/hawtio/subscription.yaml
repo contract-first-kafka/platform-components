@@ -1,12 +1,11 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  labels:
-    operators.coreos.com/red-hat-hawtio-operator.hawtio-operator: ''
   name: red-hat-hawtio-operator
-  namespace: hawtio-operator
+  namespace: openshift-operators
 spec:
-  channel: stable-v1
+  channel: v2
+  installPlanApproval: Automatic
   name: red-hat-hawtio-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace

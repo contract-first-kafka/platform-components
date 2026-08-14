@@ -1,7 +1,0 @@
-auth:
-  devSpacesClientId: devspaceAppID
-  devSpacesClientSecret: devspaceClientSecret
-git:
-  host: git-host
-  token: replaceme
-

@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - external-secrets.yaml
+  - postgrescluster.yaml
+  - service-route.yaml
+  - keycloak.yaml
+  - realm.yaml
+replacements:
+  - source:
+      group: k8s.keycloak.org
+      version: v2beta1
+      kind: Keycloak
+      name: cf-idp-keycloak
+      fieldPath: metadata.annotations.[platform.contract-first.io/router-domain]
+    targets:
+      - select:
+          group: k8s.keycloak.org
+          version: v2beta1
+          kind: Keycloak
+          name: cf-idp-keycloak
+        fieldPaths:
+          - spec.hostname.hostname
+        options:
+          delimiter: .
+          index: 1
+  - source:
+      group: route.openshift.io
+      version: v1
+      kind: Route
+      name: cf-idp-keycloak
+      fieldPath: metadata.annotations.[platform.contract-first.io/router-domain]
+    targets:
+      - select:
+          group: route.openshift.io
+          version: v1
+          kind: Route
+          name: cf-idp-keycloak
+        fieldPaths:
+          - spec.host
+        options:
+          delimiter: .
+          index: 1
