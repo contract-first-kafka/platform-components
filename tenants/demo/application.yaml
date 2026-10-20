@@ -11,7 +11,7 @@ spec:
   project: tenant-demo-admission
   sources:
     - repoURL: https://github.com/contract-first-kafka/developer-charts.git
-      targetRevision: feat/domain-eventcatalog
+      targetRevision: v1.2.0
       path: charts/domain/environment
       helm:
         valueFiles:
