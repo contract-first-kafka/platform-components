@@ -8,6 +8,7 @@
 | External Secrets | Red Hat Operator | `stable-v1` / 1.2.0 |
 | cert-manager | Red Hat Operator, install/adopt | `stable-v1` |
 | Keycloak | Community Operator, namespace-scoped to `cf-idp-keycloak` | `fast` / starting from 26.7.1 |
+| Streams for Apache Kafka | Red Hat Operator | `amq-streams-3.2.x` / 3.2.1 at discovery time |
 | PostgreSQL | Certified Crunchy Operator | `v5` / 5.8.8 |
 | Developer Hub | Red Hat Operator | `fast` / 1.10.2 at discovery time |
 | Dev Spaces | Red Hat Operator | `stable` / 3.29.1 at discovery time |
@@ -36,3 +37,10 @@ Dev Spaces uses the CF-IDP GitHub App client credentials for per-user GitHub aut
 does not receive the App private key used by Developer Hub automation. See
 [Installation](installation.md#configure-the-cf-idp-github-app) and
 [Validation](validation.md#github-app-integrations).
+
+## Kafka Resources
+
+The Streams operator watches tenant namespaces. The Resource Golden Path owns Kafka and
+KafkaNodePool instances through System GitOps, just as PostgreSQL Resources own their
+PostgresCluster. Installing the operator does not create a shared Kafka cluster. The Kafka
+profile uses the Streams 3.2 `kafka.strimzi.io/v1` API and KRaft node pools.
