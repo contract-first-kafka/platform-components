@@ -15,6 +15,10 @@ test('Developer Hub verifies Kubernetes TLS using its mounted cluster CA', () =>
   expect(ca.key).toBe('ca.crt');
   expect(cluster.caFile).toBe(path.posix.join(files.mountPath, ca.key));
   expect(cluster.skipTLSVerify).toBe(false);
+  expect(backstage.spec.application.extraEnvs.envs).toContainEqual({
+    name: 'NODE_EXTRA_CA_CERTS',
+    value: cluster.caFile,
+  });
   expect(backstage.spec.application.extraEnvs.envs || []).not.toContainEqual(
     expect.objectContaining({name: 'NODE_TLS_REJECT_UNAUTHORIZED', value: '0'}));
 });
