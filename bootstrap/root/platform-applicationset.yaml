@@ -23,6 +23,7 @@ spec:
                 - {name: external-secrets, project: platform-infrastructure, namespace: cf-idp-secrets, path: components/external-secrets}
 
                 # Default workshop infrastructure. Remove an operator only when the target already provides it.
+                - {name: operator-streams, project: platform-operators, namespace: openshift-operators, path: operators/streams}
                 - {name: operator-postgresql, project: platform-operators, namespace: openshift-operators, path: operators/postgresql}
                 - {name: operator-developer-hub, project: platform-operators, namespace: openshift-operators, path: operators/developer-hub}
                 - {name: operator-devspaces, project: platform-operators, namespace: openshift-operators, path: operators/devspaces}
