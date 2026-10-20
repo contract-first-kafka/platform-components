@@ -45,12 +45,12 @@ spec:
         catalogPath: catalog-info.yaml
       developerCharts:
         repositoryUrl: https://github.com/contract-first-kafka/developer-charts.git
-        revision: v1.0.0
-        version: 1.0.0
+        revision: v1.0.3
+        version: 1.0.3
     charts:
       repositoryUrl: https://github.com/contract-first-kafka/developer-charts.git
-      revision: v1.0.0
-      version: 1.0.0
+      revision: v1.0.3
+      version: 1.0.3
     schemaRegistry:
       apiUrl: "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3"
       uiUrl: "https://apicurio-ui.apps.cluster-ggvsm.dyn.redhatworkshops.io"
