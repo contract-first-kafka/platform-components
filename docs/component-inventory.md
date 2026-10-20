@@ -18,7 +18,6 @@
 | Quay Bridge | Red Hat Operator | `stable-3.18` / 3.18.0 |
 | Microcks | Kustomize manifests | 1.14.0 |
 | Hawtio | Red Hat Operator | `v2` / 2.0.0 catalog build |
-| Apicurito | Community Operator, namespace-scoped to `apicurio-designer` | `1.0.x` / 1.0.3 |
 | Kaoto Camel Designer | Dev Spaces extension | `redhat.vscode-kaoto` from Open VSX |
 
 CF-IDP runs this Keycloak instance in parallel with environment-owned identity infrastructure when
@@ -45,9 +44,8 @@ KafkaNodePool instances through System GitOps, just as PostgreSQL Resources own 
 PostgresCluster. Installing the operator does not create a shared Kafka cluster. The Kafka
 profile uses the Streams 3.2 `kafka.strimzi.io/v1` API and KRaft node pools.
 
-## Apicurito API Designer
+## Integrated API Designer
 
-The default platform ApplicationSet includes `operator-apicurito` and `apicurito`. The operator
-Application owns the `apicurio-designer` namespace, OperatorGroup, and Subscription; the service
-Application owns the `api-studio` Apicurito instance. The operator creates the designer workloads
-and Route. Apicurito is separate from Apicurio Registry and does not require its database.
+Apicurio Registry 3 provides the Designer through its existing UI and authentication.
+Only draft version content is mutable; finalized versions remain immutable and unrestricted
+resource deletion remains disabled. See [Designer authoring](registry-designer.md).

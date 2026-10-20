@@ -28,7 +28,6 @@ spec:
                 - {name: operator-developer-hub, project: platform-operators, namespace: openshift-operators, path: operators/developer-hub}
                 - {name: operator-devspaces, project: platform-operators, namespace: openshift-operators, path: operators/devspaces}
                 - {name: operator-pipelines, project: platform-operators, namespace: openshift-operators, path: operators/openshift-pipelines}
-                - {name: operator-apicurito, project: platform-operators, namespace: apicurio-designer, path: operators/apicurito}
                 - {name: operator-apicurio, project: platform-operators, namespace: openshift-operators, path: operators/apicurio-registry}
                 - {name: operator-keycloak, project: platform-operators, namespace: cf-idp-keycloak, path: operators/keycloak}
                 - {name: operator-quay, project: platform-operators, namespace: openshift-operators, path: operators/quay}
@@ -45,7 +44,6 @@ spec:
                 - {name: devspaces, project: platform-services, namespace: openshift-devspaces, path: components/devspaces}
 
                 # API lifecycle. Apicurio and Microcks depend on Keycloak; Apicurio also needs PostgreSQL.
-                - {name: apicurito, project: platform-services, namespace: apicurio-designer, path: components/apicurito}
                 - {name: apicurio, project: platform-services, namespace: apicurio, path: components/apicurio}
                 - {name: microcks, project: platform-services, namespace: microcks, path: components/microcks}
                 - {name: hawtio, project: platform-services, namespace: hawtio, path: components/hawtio}
