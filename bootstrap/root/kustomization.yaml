@@ -8,7 +8,7 @@ configMapGenerator:
   - name: platform-bootstrap-settings
     namespace: openshift-gitops
     literals:
-      - PLATFORM_REPO_URL=https://github.com/contract-first-idp/platform-components.git
+      - PLATFORM_REPO_URL=https://github.com/contract-first-kafka/platform-components.git
       - PLATFORM_REVISION=main
 generatorOptions:
   disableNameSuffixHash: true
