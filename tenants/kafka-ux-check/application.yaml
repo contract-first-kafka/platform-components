@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kafka-ux-check-domain
+  namespace: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: tenant-kafka-ux-check-admission
+  sources:
+    - repoURL: https://github.com/contract-first-kafka/developer-charts.git
+      targetRevision: v1.4.0
+      path: charts/domain/environment
+      helm:
+        valueFiles:
+          - $platform/catalog-info.yaml
+          - $domain/catalog-info.yaml
+    - repoURL: https://github.com/contract-first-kafka/kafka-ux-check-domain.git
+      targetRevision: main
+      ref: domain
+    - repoURL: https://github.com/contract-first-kafka/platform-components.git
+      targetRevision: main
+      ref: platform
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openshift-gitops
+  syncPolicy:
+    automated: {prune: true, selfHeal: true}
