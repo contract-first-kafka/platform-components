@@ -40,17 +40,17 @@ spec:
         organization: contract-first-kafka
         repository: software-templates
         repositoryUrl: https://github.com/contract-first-kafka/software-templates.git
-        revision: v1.5.0
-        version: 1.5.0
+        revision: v1.6.0
+        version: 1.6.0
         catalogPath: catalog-info.yaml
       developerCharts:
         repositoryUrl: https://github.com/contract-first-kafka/developer-charts.git
-        revision: v1.4.0
-        version: 1.4.0
+        revision: v1.4.1
+        version: 1.4.1
     charts:
       repositoryUrl: https://github.com/contract-first-kafka/developer-charts.git
-      revision: v1.4.0
-      version: 1.4.0
+      revision: v1.4.1
+      version: 1.4.1
     schemaRegistry:
       apiUrl: "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3"
       uiUrl: "https://apicurio-ui.apps.cluster-ggvsm.dyn.redhatworkshops.io"
