@@ -40,8 +40,8 @@ spec:
         organization: contract-first-kafka
         repository: software-templates
         repositoryUrl: https://github.com/contract-first-kafka/software-templates.git
-        revision: v1.6.1
-        version: 1.6.1
+        revision: v1.6.2
+        version: 1.6.2
         catalogPath: catalog-info.yaml
       developerCharts:
         repositoryUrl: https://github.com/contract-first-kafka/developer-charts.git
